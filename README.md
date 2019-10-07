@@ -19,3 +19,22 @@ It only requires numpy.
 ## Quickstart
 dbscan1d is designed to be interchangable with sklearn's implementation in alnmost
 all cases. The exception is that the `weights` parameter is not yet supported.
+
+```python
+from sklearn.datasets import make_blobs
+
+from dbscan1d import DBSCAN1D
+
+# make blobs to test clustering on
+X = make_blobs(1_000_000, centers=2, n_features=1)[0]
+
+# init dbscan object
+dbs = DBSCAN1D(eps=.5, min_samples=4)
+labels = dbs.fit_predict(X)
+
+# show core point indices
+dbs.core_sample_indices_
+
+# get values of core points
+dbs.components_
+```
