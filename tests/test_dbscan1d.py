@@ -63,7 +63,7 @@ def generate_test_data(num_points, centers=None):
 
 class TestSKleanEquivilent:
     """
-    Basic test for DBSCAN1D.
+    Basic tests for DBSCAN1D.
 
     Essentially these just ensure the output is equivalent to sklearn's dbscan
     for various contrived datasets.
@@ -96,7 +96,7 @@ class TestSKleanEquivilent:
         return db1, db2
 
     def test_blob1_outputs(self, blobs1, db_instances):
-        """ The first test case. """
+        """ The first tests case. """
         db1, db2 = db_instances
         out1 = db1.fit_predict(blobs1)
         out2 = db2.fit_predict(blobs1)

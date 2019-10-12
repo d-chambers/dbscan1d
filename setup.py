@@ -84,4 +84,5 @@ setup(
     tests_require=read_requirements(test_req_path),
     setup_requires=["pytest-runner>=2.0"],
     python_requires=">=%s" % python_version_str,
+    long_description_content_type='text/markdown',
 )
