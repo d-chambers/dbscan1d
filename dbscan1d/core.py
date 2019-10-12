@@ -3,13 +3,11 @@ A simple implementation of DBSCAN for 1D data.
 
 It should be *much* more efficient for large datasets.
 """
-from dataclasses import dataclass
 from typing import Optional
 
 import numpy as np
 
 
-@dataclass
 class DBSCAN1D:
     """
     A one dimensional implementation of DBSCAN.
