@@ -10,10 +10,11 @@ import pytest
 from sklearn.cluster import DBSCAN
 from sklearn.datasets import make_blobs
 
-from dbscan1d import DBSCAN1D
+from dbscan1d.core import DBSCAN1D
 
 
 # --- tests utils
+
 
 def clusters_equivalent(labels1, labels2):
     """
@@ -49,13 +50,12 @@ def unclusterd_equal(labels1, labels2):
 
 
 def generate_test_data(num_points, centers=None):
-    blobs, blob_labels = make_blobs(num_points, n_features=1, centers=centers,
-                                    random_state=13)
+    blobs, blob_labels = make_blobs(
+        num_points, n_features=1, centers=centers, random_state=13
+    )
     X = blobs.flatten()
     np.random.shuffle(X)
     return X, blob_labels
-
-
 
 
 # --- tests cases
@@ -68,22 +68,23 @@ class TestSKleanEquivilent:
     Essentially these just ensure the output is equivalent to sklearn's dbscan
     for various contrived datasets.
     """
+
     # define a small range of dbscan input params over which tests will
     # be parametrized
-    eps_values = [0.0001, .1, .5, 1, 2]
-    min_samples_values = [0, 1, 2,  5, 15]
+    eps_values = [0.0001, 0.1, 0.5, 1, 2]
+    min_samples_values = [0, 1, 2, 5, 15]
     # eps_values = [ .5,]
     # min_samples_values = [ 2,]
     db_params = list(product(eps_values, min_samples_values))
 
-    @pytest.fixture(scope='class')
+    @pytest.fixture(scope="class")
     def blobs1(self):
         """ The first sklearn-generated blobs. """
         centers = np.array([0, 5, 10]).reshape(1, -1)
         X, _ = generate_test_data(1000, centers=centers)
         return X.reshape(-1, 1)
 
-    @pytest.fixture(scope='class', params=db_params)
+    @pytest.fixture(scope="class", params=db_params)
     def db_instances(self, request):
         """
         Using the parametrized values, unit an instance of DBSCAN1D and
@@ -107,5 +108,3 @@ class TestSKleanEquivilent:
         assert unclusterd_equal(out1, out2)
         # Now assert the same points fall in the same cluster groups
         assert clusters_equivalent(out1, out2)
-
-
