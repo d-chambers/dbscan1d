@@ -42,7 +42,7 @@ jobs:
       conda update -q conda
       conda create $(conda_args) python=$(python.version) $(conda_packages)
       source activate $(env_name)
-      pip install -r requirements.txt
+      pip install -r tests/requirements.txt
       pip install -e .
     displayName: Create Anaconda environment
 
@@ -98,7 +98,7 @@ jobs:
       source activate $(env_name)
       pytest
     displayName: pytest
-
+#
 #
 #- job: 'windows'
 #  pool:
@@ -133,4 +133,4 @@ jobs:
 #      call activate $(env_name)
 #      pytest --cov obsplus && pytest --nbval docs/
 #    displayName: pytest
-
+#

@@ -57,7 +57,6 @@ def read_requirements(path):
 
 package_req_path = here / "requirements.txt"
 test_req_path = here / "tests" / "requirements.txt"
-doc_req_path = here / "docs" / "requirements.txt"
 
 setup(
     name="dbscan1d",
@@ -82,6 +81,7 @@ setup(
     ],
     test_suite="tests",
     install_requires=read_requirements(package_req_path),
+    tests_require=read_requirements(test_req_path),
     setup_requires=["pytest-runner>=2.0"],
     python_requires=">=%s" % python_version_str,
 )
