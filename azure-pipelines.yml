@@ -11,6 +11,7 @@ variables:
   env_name: testenv
   conda_args: --yes --quiet --name $(env_name)
   conda_packages: numpy flake8 flake8-black
+  pytest_cmd: pytest
 
 jobs:
 
@@ -53,7 +54,7 @@ jobs:
 
   - bash: |
       source activate $(env_name)
-      pytest --cov obsplus && pytest --nbval docs/
+      $(pytest_cmd)
     displayName: pytest
 
 
@@ -96,7 +97,7 @@ jobs:
 
   - bash: |
       source activate $(env_name)
-      pytest
+      $(pytest_cmd)
     displayName: pytest
 #
 #
