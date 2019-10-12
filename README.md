@@ -23,7 +23,7 @@ all cases. The exception is that the `weights` parameter is not yet supported.
 ```python
 from sklearn.datasets import make_blobs
 
-from dbscan1d import DBSCAN1D
+from dbscan1d.core import DBSCAN1D
 
 # make blobs to test clustering on
 X = make_blobs(1_000_000, centers=2, n_features=1)[0]

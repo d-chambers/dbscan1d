@@ -17,6 +17,7 @@ class DBSCAN1D:
     This class has a very similar interface as sklearn's implementation. In
     most cases they should be interchangeable.
     """
+
     # params that change upon fit/training
     core_sample_indices_: Optional[np.ndarray] = None
     components_: Optional[np.ndarray] = None
@@ -28,8 +29,8 @@ class DBSCAN1D:
 
     def _get_is_core(self, ar):
         """ Determine if each point is a core. """
-        mineps = np.searchsorted(ar, ar - self.eps, side='left')
-        maxeps = np.searchsorted(ar, ar + self.eps, side='right')
+        mineps = np.searchsorted(ar, ar - self.eps, side="left")
+        maxeps = np.searchsorted(ar, ar + self.eps, side="right")
         core = (maxeps - mineps) >= self.min_samples
         return core
 
@@ -84,9 +85,9 @@ class DBSCAN1D:
         sample_weight
             Not yet supported
         """
-        assert len(X.shape) == 1 or X.shape[-1] == 1, 'X must be 1d array'
-        assert y is None, 'y parameter is ignored'
-        assert sample_weight is None, 'sample weights are not yet supported'
+        assert len(X.shape) == 1 or X.shape[-1] == 1, "X must be 1d array"
+        assert y is None, "y parameter is ignored"
+        assert sample_weight is None, "sample weights are not yet supported"
         # get sorted array and sorted order
         ar = X.flatten()
         ar_sorted = np.sort(ar)
