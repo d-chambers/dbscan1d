@@ -69,7 +69,6 @@ setup(
     packages=find_packages("dbscan1d"),
     package_dir={"dbscan1d": "dbscan1d"},
     include_package_data=True,
-    data_files='requirements.txt',
     license="GNU Lesser General Public License v3.0 or later (LGPLv3.0+)",
     zip_safe=False,
     classifiers=[
