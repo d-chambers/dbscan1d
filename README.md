@@ -17,7 +17,7 @@ pip install dbscan1d
 It only requires numpy.
 
 ## Quickstart
-dbscan1d is designed to be interchangable with sklearn's implementation in alnmost
+dbscan1d is designed to be interchangable with sklearn's implementation in almost
 all cases. The exception is that the `weights` parameter is not yet supported.
 
 ```python
