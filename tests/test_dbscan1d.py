@@ -92,8 +92,8 @@ class TestSKleanEquivilent:
         DBSCAN (from sklearn)
         """
         eps, min_samples = request.param
-        db1 = DBSCAN1D(eps, min_samples)
-        db2 = DBSCAN(eps, min_samples)
+        db1 = DBSCAN1D(eps=eps, min_samples=min_samples)
+        db2 = DBSCAN(eps=eps, min_samples=min_samples)
         return db1, db2
 
     def test_blob1_outputs(self, blobs1, db_instances):
