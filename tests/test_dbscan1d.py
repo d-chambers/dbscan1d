@@ -50,6 +50,7 @@ def unclusterd_equal(labels1, labels2):
 
 
 def generate_test_data(num_points, centers=None):
+    """Generate data for testing."""
     blobs, blob_labels = make_blobs(
         num_points, n_features=1, centers=centers, random_state=13
     )

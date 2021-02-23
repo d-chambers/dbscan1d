@@ -1,0 +1,69 @@
+name: validate
+on: [push]
+
+jobs:
+  # Simply applies flake8 to code using pre-commit
+  lint_code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup conda
+        uses: s-weigand/setup-conda@v1
+        with:
+          python-version: 3.7
+
+      - name: install linting packages
+        run: pip install pre-commit
+
+      - name: run all precommits
+        run: pre-commit run --all
+
+  # Runs the tests on combinations of the supported python/os matrix.
+  test_code:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: [3.6, 3.7, 3.8, 3.9]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: 'latest'
+          python-version: ${{ matrix.python-version }}
+          activate-environment: test
+          environment-file: .github/test_conda_env.yml
+          condarc-file: .github/test_condarc.yml
+
+      - name: install
+        shell: bash -l {0}
+        run: |
+          pip install -e .
+
+      - name: fix pywin
+        if: matrix.os == 'windows-latest'
+        shell: bash -l {0}
+        run: pip install pywin32==225
+
+      - name: print package info
+        shell: bash -l {0}
+        run: |
+          conda info -a
+          conda list
+
+      # Runs test suite and calculates coverage
+      - name: run test suite
+        shell: bash -l {0}
+        run: |
+          pytest tests
+
+      # Runs examples in docstrings
+      - name: test docstrings
+        shell: bash -l {0}
+        run: |
+          pytest dbscan1d --doctest-modules

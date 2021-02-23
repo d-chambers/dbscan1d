@@ -27,8 +27,12 @@ version_file = here / "dbscan1d" / "version.py"
 
 # --- get version
 with version_file.open() as fi:
-    content = fi.read().split("=")[-1].strip()
-    __version__ = content.replace('"', "").replace("'", "")
+    for line in fi.readlines():
+        if line.startswith("__version__"):
+            __version__ = (
+                line.replace('"', "").replace("'", "").split(" = ")[1].rstrip()
+            )
+
 
 # --- get readme
 with open("README.md") as readme_file:
@@ -84,5 +88,5 @@ setup(
     tests_require=read_requirements(test_req_path),
     setup_requires=["pytest-runner>=2.0"],
     python_requires=">=%s" % python_version_str,
-    long_description_content_type='text/markdown',
+    long_description_content_type="text/markdown",
 )
