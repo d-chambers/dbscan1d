@@ -61,9 +61,3 @@ jobs:
         shell: bash -l {0}
         run: |
           pytest tests
-
-      # Runs examples in docstrings
-      - name: test docstrings
-        shell: bash -l {0}
-        run: |
-          pytest dbscan1d --doctest-modules
