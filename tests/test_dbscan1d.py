@@ -50,6 +50,7 @@ def unclusterd_equal(labels1, labels2):
 
 
 def generate_test_data(num_points, centers=None):
+    """Generate data for testing."""
     blobs, blob_labels = make_blobs(
         num_points, n_features=1, centers=centers, random_state=13
     )
@@ -91,8 +92,8 @@ class TestSKleanEquivilent:
         DBSCAN (from sklearn)
         """
         eps, min_samples = request.param
-        db1 = DBSCAN1D(eps, min_samples)
-        db2 = DBSCAN(eps, min_samples)
+        db1 = DBSCAN1D(eps=eps, min_samples=min_samples)
+        db2 = DBSCAN(eps=eps, min_samples=min_samples)
         return db1, db2
 
     def test_blob1_outputs(self, blobs1, db_instances):

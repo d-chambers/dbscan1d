@@ -1,4 +1,10 @@
 # DBSCAN1D
+
+[![Coverage](https://codecov.io/gh/d-chambers/dbscan1d/branch/master/graph/badge.svg)](https://codecov.io/gh/d-chambers/dbscan1d)
+[![Supported Versions](https://img.shields.io/pypi/pyversions/dbscan1d.svg)](https://pypi.python.org/pypi/dbscan1d)
+[![PyPI](https://pepy.tech/badge/dbscan1d)](https://pepy.tech/project/dbscan1d)
+[![Licence](https://www.gnu.org/graphics/lgplv3-88x31.png)](https://www.gnu.org/licenses/lgpl.html)
+
 dbscan1d is a 1D implementation of the [DBSCAN algorithm](https://en.wikipedia.org/wiki/DBSCAN). It was created to efficiently
 preform clustering on large 1D arrays.
 
