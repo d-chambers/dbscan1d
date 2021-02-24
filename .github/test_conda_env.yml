@@ -6,3 +6,7 @@ dependencies:
   - numpy
   - pytest
   - scikit-learn
+  - pip
+  - pip:
+      - pytest-cov
+
