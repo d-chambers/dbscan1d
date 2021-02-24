@@ -62,7 +62,7 @@ def generate_test_data(num_points, centers=None):
 # --- tests cases
 
 
-class TestSKleanEquivilent:
+class TestSKleanEquivalent:
     """
     Basic tests for DBSCAN1D.
 
@@ -109,3 +109,24 @@ class TestSKleanEquivilent:
         assert unclusterd_equal(out1, out2)
         # Now assert the same points fall in the same cluster groups
         assert clusters_equivalent(out1, out2)
+
+
+class TestIssues:
+    """Tests for issues filled on github."""
+
+    def test_issue_3(self):
+        """
+        Test that cluster numbers remain concistent for 1 cluster. See issue #3.
+        """
+        label_is_zero = [86400.0, 86400.0, 86400.0, 86401.0, 86399.0, 86400.0, 86401.0, 86399.0, 86400.0, 86400.0,
+                         86400.0, 86402.0, 86398.0, 86401.0, 86399.0, 86401.0, 86400.0, 86399.0, 86399.0, 86401.0,
+                         86399.0, 86401.0, 86399.0, 86402.0, 86399.0, 86400.0, 86401.0, 86401.0]
+
+        label_is_one = [46823, 46818, 46816, 46816, 46819]
+
+        out1 = DBSCAN1D().fit_predict(np.array(label_is_one))
+
+        out2 = DBSCAN1D().fit_predict(np.array(label_is_zero))
+
+        breakpoint()
+
