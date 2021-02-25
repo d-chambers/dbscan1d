@@ -116,17 +116,13 @@ class TestIssues:
 
     def test_issue_3(self):
         """
-        Test that cluster numbers remain concistent for 1 cluster. See issue #3.
+        Test that cluster numbers remain consistent for 1 cluster. See issue #3.
         """
-        label_is_zero = [86400.0, 86400.0, 86400.0, 86401.0, 86399.0, 86400.0, 86401.0, 86399.0, 86400.0, 86400.0,
-                         86400.0, 86402.0, 86398.0, 86401.0, 86399.0, 86401.0, 86400.0, 86399.0, 86399.0, 86401.0,
-                         86399.0, 86401.0, 86399.0, 86402.0, 86399.0, 86400.0, 86401.0, 86401.0]
-
-        label_is_one = [46823, 46818, 46816, 46816, 46819]
-
-        out1 = DBSCAN1D().fit_predict(np.array(label_is_one))
-
-        out2 = DBSCAN1D().fit_predict(np.array(label_is_zero))
-
-        breakpoint()
-
+        ar1 = [86400.0, 86401.0, 86399.0, 86401.0, 86399.0, 86401.0]
+        ar2 = [46823, 46818, 46816, 46816, 46819]
+        dbscan = DBSCAN1D(eps=5, min_samples=3)
+        # Group names should be sequential, starting with zero
+        out1 = dbscan.fit_predict(np.array(ar2))
+        out2 = dbscan.fit_predict(np.array(ar1))
+        assert set(out1) == {0}
+        assert set(out2) == {0}
