@@ -35,6 +35,10 @@ class DBSCAN1D:
     def _assign_core_group_numbers(self, cores):
         """ Given a group of core points, assign group numbers to each. """
         gt_eps = abs(cores - np.roll(cores, 1)) > self.eps
+        # The first value doesn't need to be compared to last, set to False so
+        # that cluster names are consistent (see issue #3).
+        if len(gt_eps):
+            gt_eps[0] = False
         return gt_eps.astype(int).cumsum()
 
     def _bound_on(self, arr, max_len):

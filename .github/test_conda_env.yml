@@ -9,4 +9,3 @@ dependencies:
   - pip
   - pip:
       - pytest-cov
-
