@@ -21,9 +21,12 @@ class DBSCAN1D:
     components_: Optional[np.ndarray] = None
     labels_: Optional[np.ndarray] = None
 
-    def __init__(self, eps: float = 0.5, min_samples: int = 5):
+    def __init__(self, eps: float = 0.5, min_samples: int = 5, metric='euclidean'):
         self.eps = eps
         self.min_samples = min_samples
+        if metric.lower() != 'euclidean':
+            msg = f"only euclidean distance is supported by DBSCAN1D"
+            raise ValueError(msg)
 
     def _get_is_core(self, ar):
         """ Determine if each point is a core. """

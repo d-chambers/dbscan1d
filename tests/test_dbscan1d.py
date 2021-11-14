@@ -126,3 +126,11 @@ class TestIssues:
         out2 = dbscan.fit_predict(np.array(ar1))
         assert set(out1) == {0}
         assert set(out2) == {0}
+
+    def test_issue_6(self):
+        """
+        DBSCAN1D should raise value error if anything but euclidean
+        distance is selected.
+        """
+        with pytest.raises(ValueError, match='euclidean'):
+            DBSCAN1D(metric='cosine')
