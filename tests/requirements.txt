@@ -1,4 +1,0 @@
-pytest
-flake8
-flake8-black
-sklearn

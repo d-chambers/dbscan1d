@@ -12,7 +12,7 @@ jobs:
       - name: Setup conda
         uses: s-weigand/setup-conda@v1
         with:
-          python-version: 3.7
+          python-version: 3.10
 
       - name: install linting packages
         run: pip install pre-commit
@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.8, 3.9, 3.10, 3.11]
 
     steps:
       - uses: actions/checkout@v1

@@ -29,14 +29,14 @@ class DBSCAN1D:
             raise ValueError(msg)
 
     def _get_is_core(self, ar):
-        """ Determine if each point is a core. """
+        """Determine if each point is a core."""
         mineps = np.searchsorted(ar, ar - self.eps, side="left")
         maxeps = np.searchsorted(ar, ar + self.eps, side="right")
         core = (maxeps - mineps) >= self.min_samples
         return core
 
     def _assign_core_group_numbers(self, cores):
-        """ Given a group of core points, assign group numbers to each. """
+        """Given a group of core points, assign group numbers to each."""
         gt_eps = abs(cores - np.roll(cores, 1)) > self.eps
         # The first value doesn't need to be compared to last, set to False so
         # that cluster names are consistent (see issue #3).
@@ -45,13 +45,13 @@ class DBSCAN1D:
         return gt_eps.astype(int).cumsum()
 
     def _bound_on(self, arr, max_len):
-        """ Ensure all values in array are bounded between 0 and max_len. """
+        """Ensure all values in array are bounded between 0 and max_len."""
         arr[arr < 0] = 0
         arr[arr >= max_len] = max_len - 1
         return arr
 
     def _get_non_core_labels(self, non_cores, cores, core_nums):
-        """ Get labels for non-core points. """
+        """Get labels for non-core points."""
         # start out with noise labels (-1)
         out = (np.ones(len(non_cores)) * -1).astype(int)
         if not len(cores):  # there are no core points, bail out early

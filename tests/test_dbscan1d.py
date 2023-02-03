@@ -10,8 +10,8 @@ import pytest
 from sklearn.cluster import DBSCAN
 from sklearn.datasets import make_blobs
 
+import dbscan1d
 from dbscan1d.core import DBSCAN1D
-
 
 # --- tests utils
 
@@ -80,7 +80,7 @@ class TestSKleanEquivalent:
 
     @pytest.fixture(scope="class")
     def blobs1(self):
-        """ The first sklearn-generated blobs. """
+        """The first sklearn-generated blobs."""
         centers = np.array([0, 5, 10]).reshape(1, -1)
         X, _ = generate_test_data(1000, centers=centers)
         return X.reshape(-1, 1)
@@ -97,7 +97,7 @@ class TestSKleanEquivalent:
         return db1, db2
 
     def test_blob1_outputs(self, blobs1, db_instances):
-        """ The first tests case. """
+        """The first tests case."""
         db1, db2 = db_instances
         out1 = db1.fit_predict(blobs1)
         out2 = db2.fit_predict(blobs1)
@@ -134,3 +134,8 @@ class TestIssues:
         """
         with pytest.raises(ValueError, match='euclidean'):
             DBSCAN1D(metric='cosine')
+
+    def test_version(self):
+        """Test that a version number is returned."""
+        version = dbscan1d.__version__
+        assert version is not None and version != "0.0.0"
