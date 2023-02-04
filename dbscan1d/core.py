@@ -21,11 +21,11 @@ class DBSCAN1D:
     components_: Optional[np.ndarray] = None
     labels_: Optional[np.ndarray] = None
 
-    def __init__(self, eps: float = 0.5, min_samples: int = 5, metric='euclidean'):
+    def __init__(self, eps: float = 0.5, min_samples: int = 5, metric="euclidean"):
         self.eps = eps
         self.min_samples = min_samples
-        if metric.lower() != 'euclidean':
-            msg = f"only euclidean distance is supported by DBSCAN1D"
+        if metric.lower() != "euclidean":
+            msg = "only euclidean distance is supported by DBSCAN1D"
             raise ValueError(msg)
 
     def _get_is_core(self, ar):
@@ -63,14 +63,14 @@ class DBSCAN1D:
         cc_left = self._bound_on(cc_left, len(cores))
         cc_right = self._bound_on(cc_right, len(cores))
         # now get index and values of closest core point (on right and left)
-        index = np.array([cc_right, cc_left]).T
-        vals = np.array([cores[cc_right], cores[cc_left]]).T
+        core_index = np.array([cc_left, cc_right]).T
+        vals = np.array([cores[cc_left], cores[cc_right]]).T
         # calculate the difference between each non-core and its neighbor cores
         diffs = abs(vals - np.array([non_cores, non_cores]).T)
         argmin = diffs.argmin(axis=1)
         dummy_ = np.arange(0, len(diffs))
         min_vals = diffs[dummy_, argmin]
-        inds = index[dummy_, argmin]
+        inds = core_index[dummy_, argmin]
         # determine if closest core point is close enough to assign to group
         is_connected = min_vals <= self.eps
         # update group and return
@@ -112,7 +112,7 @@ class DBSCAN1D:
         out = group_nums[undo_sorted]
         is_core_original_sorting = is_core[undo_sorted]
         # set class attrs and return predicted labels
-        self.core_sample_indices_ = np.where(is_core_original_sorting)
+        self.core_sample_indices_ = np.where(is_core_original_sorting)[0]
         # self.components_ = cores.values
         self.labels_ = out
         return self

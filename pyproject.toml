@@ -51,7 +51,7 @@ dependencies = [
 test = [
     "pytest",
     "pre-commit",
-    "sklearn",
+    "scikit-learn",
 ]
 dev = ["dbscan1d[test]"]
 
