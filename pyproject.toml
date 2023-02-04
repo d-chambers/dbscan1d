@@ -5,14 +5,17 @@
 requires = [ "setuptools>=41", "setuptools-scm", ]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [tool.setuptools-git-versioning]
 enabled = true
 
-[tool.setuptools]
-include-package-data = true
-packages = ["dbscan1d"]
-
 [tool.setuptools_scm]  # this empty section enables the tool
+
 
 # --- Project Metadata
 
@@ -24,9 +27,9 @@ authors = [
   { name="Derrick Chambers", email="chambers.ja.derrick@gmail.com" },
 ]
 
-description = "A python library distributed fiber optic sensing"
-readme = "readme.md"
-license = { file="docs/LICENSE" }
+description = "An efficient implementation of the DBSCAN algorithm for 1D arrays."
+readme = "README.md"
+license = { file="LICENSE" }
 requires-python = ">=3.8"
 classifiers = [
     "Development Status :: 4 - Beta",
