@@ -46,3 +46,11 @@ dbs.core_sample_indices_
 # get values of core points
 dbs.components_
 ```
+
+## Notes
+
+- dbscan1d can return different group numbers than sklearn for non-core points which are within
+eps distances of core points for two separate groups. For example:
+ `--C1--C1--P--C2--C2`
+Here C1 and C2 are core points for group 1 and group 2, respectively. If P is within eps of both C1 and
+C2, dbscan1d will assign it the same label as the core point that is closest. Sklearn doesn't always do this.

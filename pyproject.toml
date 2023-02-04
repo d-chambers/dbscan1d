@@ -1,0 +1,63 @@
+
+# --- Build system configuration
+
+[build-system]
+requires = [ "setuptools>=41", "setuptools-scm", ]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools-git-versioning]
+enabled = true
+
+[tool.setuptools]
+include-package-data = true
+packages = ["dbscan1d"]
+
+[tool.setuptools_scm]  # this empty section enables the tool
+
+# --- Project Metadata
+
+[project]
+name = "dbscan1d"
+dynamic = ["version"]  # version is fetched by setuptools-git-versioning
+
+authors = [
+  { name="Derrick Chambers", email="chambers.ja.derrick@gmail.com" },
+]
+
+description = "A python library distributed fiber optic sensing"
+readme = "readme.md"
+license = { file="docs/LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering",
+]
+
+keywords = ["geophysics", "distributed-acoustic-sensing"]
+
+# --- Dependencies
+
+dependencies = [
+     "numpy >= 1.13.0",
+]
+
+[project.optional-dependencies]
+
+test = [
+    "pytest",
+    "pre-commit",
+    "scikit-learn",
+]
+dev = ["dbscan1d[test]"]
+
+# --- URLs for project
+
+[project.urls]
+"Bug Tracker" = "https://github.com/d-chambers/dbscan1d/issues"
+"Documentation" = "https://github.com/d-chambers/dbscan1d"
+"Homepage" = "https://github.com/d-chambers/dbscan1d"
