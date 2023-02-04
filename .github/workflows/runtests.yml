@@ -45,11 +45,6 @@ jobs:
         run: |
           pip install -e .
 
-      - name: fix pywin
-        if: matrix.os == 'windows-latest'
-        shell: bash -l {0}
-        run: pip install pywin32==225
-
       - name: print package info
         shell: bash -l {0}
         run: |
