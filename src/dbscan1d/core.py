@@ -28,11 +28,12 @@ class DBSCAN1D:
             msg = "only euclidean distance is supported by DBSCAN1D"
             raise ValueError(msg)
 
-    def _get_is_core(self, ar):
+    def _get_is_core(self, ar, sample_weight):
         """Determine if each point is a core."""
         mineps = np.searchsorted(ar, ar - self.eps, side="left")
         maxeps = np.searchsorted(ar, ar + self.eps, side="right")
-        core = (maxeps - mineps) >= self.min_samples
+        cumulated_weight = np.insert(np.cumsum(sample_weight), 0, 0)
+        core = cumulated_weight[maxeps] - cumulated_weight[mineps] >= self.min_samples
         return core
 
     def _assign_core_group_numbers(self, cores):
@@ -92,14 +93,19 @@ class DBSCAN1D:
         """
         assert len(X.shape) == 1 or X.shape[-1] == 1, "X must be 1d array"
         assert y is None, "y parameter is ignored"
-        assert sample_weight is None, "sample weights are not yet supported"
         # get sorted array and sorted order
         ar = X.flatten()
-        ar_sorted = np.sort(ar)
+        if sample_weight is None:
+            sample_weight = np.ones_like(ar, dtype=np.float64)
+        else:
+            sample_weight = np.asarray(sample_weight, dtype=np.float64)
+        sorted_index = np.argsort(ar)
+        ar_sorted = ar[sorted_index]
+        sample_weight_sorted = sample_weight[sorted_index]
         undo_sorted = np.argsort(np.argsort(ar))
 
         # get core points, and separate core from non-core
-        is_core = self._get_is_core(ar_sorted)
+        is_core = self._get_is_core(ar_sorted, sample_weight_sorted)
         group_nums = np.ones_like(is_core) * -1  # empty group numbers
         cores = ar_sorted[is_core]
         non_cores = ar_sorted[~is_core]
