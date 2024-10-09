@@ -30,7 +30,7 @@ authors = [
 description = "An efficient implementation of the DBSCAN algorithm for 1D arrays."
 readme = "README.md"
 license = { file="LICENSE" }
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 classifiers = [
     "Development Status :: 4 - Beta",
     "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
@@ -56,7 +56,7 @@ test = [
     "pre-commit",
     "scikit-learn",
 ]
-dev = []
+dev = ["dbscan1d[test]"]
 
 # --- URLs for project
 
@@ -86,11 +86,6 @@ lint.select = [
     "NPY201",
 ]
 
-lint.fixable = ["ALL"]
-
-# List of codes to ignore
-lint.ignore = ["D105", "D107", "D401", "D205", "D200", "D400", "N803", "N806"]
-
 # Exclude a variety of commonly ignored directories.
 exclude = [
     ".bzr",
@@ -119,6 +114,11 @@ exclude = [
 
 # lowest python version supported
 target-version = "py310"
+
+lint.fixable = ["ALL"]
+
+# List of codes to ignore
+lint.ignore = ["D105", "D107", "D401", "D205", "D200", "D400", "N803", "N806"]
 
 [tool.ruff.lint.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
