@@ -49,11 +49,6 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         run: uv python install ${{ matrix.python-version }}
 
-      - name: install dbscan1d
-        shell: bash -el {0}
-        run: |
-          uv pip install -e ".[dev]" --system
-
       - name: Install the project
         run: uv sync --all-extras --dev
 
@@ -65,7 +60,7 @@ jobs:
 
       - name: Run tests
         # For example, using `pytest`
-        run: uv run pytest -s --cov dascore --cov-append --cov-report=xml
+        run: uv run pytest -s --cov dbscan1d --cov-append --cov-report=xml
 
       # Upload coverage files
       - uses: codecov/codecov-action@v4

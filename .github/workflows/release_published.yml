@@ -27,8 +27,7 @@ jobs:
       - name: create dists
         shell: bash -l {0}
         run: |
-          uv pip install build --system
-          uv run build
+          uv build
 
       - name: publish package
         uses: pypa/gh-action-pypi-publish@release/v1
