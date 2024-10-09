@@ -24,7 +24,7 @@ It only requires numpy.
 
 ## Quickstart
 dbscan1d is designed to be interchangable with sklearn's implementation in almost
-all cases. The exception is that the `weights` parameter is not yet supported.
+all cases.
 
 ```python
 from sklearn.datasets import make_blobs

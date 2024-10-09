@@ -3,6 +3,7 @@ Tests for dbscan1d.
 
 Requires sklearn.
 """
+
 import copy
 from itertools import product
 from pathlib import Path
@@ -122,7 +123,8 @@ def generate_test_data(num_points, centers=None):
         num_points, n_features=1, centers=centers, random_state=13
     )
     X = blobs.flatten()
-    np.random.shuffle(X)
+    rng = np.random.default_rng()
+    rng.shuffle(X)
     return X, blob_labels
 
 
@@ -139,18 +141,18 @@ class TestSKleanEquivalent:
 
     # define a small range of dbscan input params over which tests will
     # be parametrized
-    eps_values = [0.0001, 0.1, 0.5, 1, 2]
-    min_samples_values = [1, 2, 5, 15]
-    db_params = list(product(eps_values, min_samples_values))
+    eps_values = (0.0001, 0.1, 0.5, 1, 2)
+    min_samples_values = (1, 2, 5, 15)
+    db_params = tuple(product(eps_values, min_samples_values))
 
-    centers = [
+    centers = (
         np.array([0, 5, 10]),
         np.arange(10),
         np.array([1, 2, 3, 4, 5, 10]),
         np.array([1, 1.1, 1.2, 1.3, 1.4, 1.5]),
         2,
         7,
-    ]
+    )
 
     @pytest.fixture(scope="class", params=centers)
     def blobs(self, request):
