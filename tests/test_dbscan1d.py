@@ -235,16 +235,16 @@ class TestIssues:
         # also test indices of core points
         assert np.all(dbs_1.core_sample_indices_ == dbs_2.core_sample_indices_)
 
+    def test_sample_weights(self) -> None:
+        """Test case for sample weights ."""
+        x = np.asarray([0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 1.1, 1.2])
+        labels = DBSCAN1D(eps=0.5, min_samples=3).fit_predict(x)
+        assert np.all(labels[:9] == 0)
+        assert np.all(labels[-2:] == -1)
 
-def test_sample_weights() -> None:
-    x = np.asarray([0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 1.1, 1.2])
-    labels = DBSCAN1D(eps=0.5, min_samples=3).fit_predict(x)
-    assert np.all(labels[:9] == 0)
-    assert np.all(labels[-2:] == -1)
-
-    weight = np.ones_like(x)
-    weight[-1] = 1.2
-    weight[-2] = 1.8
-    labels = DBSCAN1D(eps=0.5, min_samples=3).fit_predict(x, sample_weight=weight)
-    assert np.all(labels[:9] == 0)
-    assert np.all(labels[-2:] == 1)
+        weight = np.ones_like(x)
+        weight[-1] = 1.2
+        weight[-2] = 1.8
+        labels = DBSCAN1D(eps=0.5, min_samples=3).fit_predict(x, sample_weight=weight)
+        assert np.all(labels[:9] == 0)
+        assert np.all(labels[-2:] == 1)

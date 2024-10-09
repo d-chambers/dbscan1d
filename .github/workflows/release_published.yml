@@ -9,16 +9,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
-      - name: Setup conda
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          miniconda-version: 'latest'
-          python-version: "3.11"
-          activate-environment: test
-          environment-file: .github/test_conda_env.yml
-          condarc-file: .github/test_condarc.yml
+      - name: "get tags"
+        run: |
+          git fetch --tags --force # Retrieve annotated tags.
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Set up Python
+        run: uv python install 3.12
 
       - name: install
         shell: bash -l {0}

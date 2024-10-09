@@ -1,4 +1,4 @@
-name: test
+name: dbscan1d
 channels:
   - conda-forge
   - defaults
