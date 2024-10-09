@@ -19,11 +19,8 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v3
 
-      - name: Set up Python
-        run: uv python install 3.12
-
       - name: install linting packages
-        run: uv pip install pre-commit
+        run: uv too install pre-commit
 
       - name: run all precommits
-        run: pre-commit run --all
+        run: uv run pre-commit run --all

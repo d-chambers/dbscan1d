@@ -46,7 +46,7 @@ keywords = ["geophysics", "distributed-acoustic-sensing"]
 # --- Dependencies
 
 dependencies = [
-     "numpy >= 1.13.0",
+     "numpy >= 2.25.0",
 ]
 
 [project.optional-dependencies]
@@ -56,7 +56,7 @@ test = [
     "pre-commit",
     "scikit-learn",
 ]
-dev = ["dbscan1d[test]"]
+dev = []
 
 # --- URLs for project
 
@@ -86,6 +86,11 @@ lint.select = [
     "NPY201",
 ]
 
+lint.fixable = ["ALL"]
+
+# List of codes to ignore
+lint.ignore = ["D105", "D107", "D401", "D205", "D200", "D400", "N803", "N806"]
+
 # Exclude a variety of commonly ignored directories.
 exclude = [
     ".bzr",
@@ -114,11 +119,6 @@ exclude = [
 
 # lowest python version supported
 target-version = "py310"
-
-lint.fixable = ["ALL"]
-
-# List of codes to ignore
-lint.ignore = ["D105", "D107", "D401", "D205", "D200", "D400", "N803", "N806"]
 
 [tool.ruff.lint.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
