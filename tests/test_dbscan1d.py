@@ -3,6 +3,7 @@ Tests for dbscan1d.
 
 Requires sklearn.
 """
+
 import copy
 from itertools import product
 from pathlib import Path
@@ -122,7 +123,8 @@ def generate_test_data(num_points, centers=None):
         num_points, n_features=1, centers=centers, random_state=13
     )
     X = blobs.flatten()
-    np.random.shuffle(X)
+    rng = np.random.default_rng()
+    rng.shuffle(X)
     return X, blob_labels
 
 
@@ -139,18 +141,18 @@ class TestSKleanEquivalent:
 
     # define a small range of dbscan input params over which tests will
     # be parametrized
-    eps_values = [0.0001, 0.1, 0.5, 1, 2]
-    min_samples_values = [1, 2, 5, 15]
-    db_params = list(product(eps_values, min_samples_values))
+    eps_values = (0.0001, 0.1, 0.5, 1, 2)
+    min_samples_values = (1, 2, 5, 15)
+    db_params = tuple(product(eps_values, min_samples_values))
 
-    centers = [
+    centers = (
         np.array([0, 5, 10]),
         np.arange(10),
         np.array([1, 2, 3, 4, 5, 10]),
         np.array([1, 1.1, 1.2, 1.3, 1.4, 1.5]),
         2,
         7,
-    ]
+    )
 
     @pytest.fixture(scope="class", params=centers)
     def blobs(self, request):
@@ -233,16 +235,16 @@ class TestIssues:
         # also test indices of core points
         assert np.all(dbs_1.core_sample_indices_ == dbs_2.core_sample_indices_)
 
+    def test_sample_weights(self) -> None:
+        """Test case for sample weights ."""
+        x = np.asarray([0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 1.1, 1.2])
+        labels = DBSCAN1D(eps=0.5, min_samples=3).fit_predict(x)
+        assert np.all(labels[:9] == 0)
+        assert np.all(labels[-2:] == -1)
 
-def test_sample_weights() -> None:
-    x = np.asarray([0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 1.1, 1.2])
-    labels = DBSCAN1D(eps=0.5, min_samples=3).fit_predict(x)
-    assert np.all(labels[:9] == 0)
-    assert np.all(labels[-2:] == -1)
-
-    weight = np.ones_like(x)
-    weight[-1] = 1.2
-    weight[-2] = 1.8
-    labels = DBSCAN1D(eps=0.5, min_samples=3).fit_predict(x, sample_weight=weight)
-    assert np.all(labels[:9] == 0)
-    assert np.all(labels[-2:] == 1)
+        weight = np.ones_like(x)
+        weight[-1] = 1.2
+        weight[-2] = 1.8
+        labels = DBSCAN1D(eps=0.5, min_samples=3).fit_predict(x, sample_weight=weight)
+        assert np.all(labels[:9] == 0)
+        assert np.all(labels[-2:] == 1)

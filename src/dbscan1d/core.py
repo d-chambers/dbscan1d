@@ -3,7 +3,8 @@ A simple implementation of DBSCAN for 1D data.
 
 It should be *much* more efficient for large datasets.
 """
-from typing import Optional
+
+from __future__ import annotations
 
 import numpy as np
 
@@ -17,9 +18,9 @@ class DBSCAN1D:
     """
 
     # params that change upon fit/training
-    core_sample_indices_: Optional[np.ndarray] = None
-    components_: Optional[np.ndarray] = None
-    labels_: Optional[np.ndarray] = None
+    core_sample_indices_: np.ndarray | None = None
+    components_: np.ndarray | None = None
+    labels_: np.ndarray | None = None
 
     def __init__(self, eps: float = 0.5, min_samples: int = 5, metric="euclidean"):
         self.eps = eps
