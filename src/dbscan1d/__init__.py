@@ -1,5 +1,5 @@
 """
-dbscan1d is package which implements the DBSCAN algorithm on 1D arrays.
+dbscan1d is a package which implements the DBSCAN algorithm on 1D arrays.
 """
 from dbscan1d.core import DBSCAN1D
 
