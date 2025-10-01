@@ -109,7 +109,7 @@ def get_unclustered(labels1, labels2):
     return out1, out2
 
 
-def unclusterd_equal(labels1, labels2):
+def unclustered_equal(labels1, labels2):
     """
     Return True if unclustered points are the same in both arrays.
     """
@@ -166,7 +166,7 @@ class TestSKleanEquivalent:
     @pytest.fixture(scope="class", params=db_params)
     def db_instances(self, request):
         """
-        Using the parametrized values, unit an instance of DBSCAN1D and
+        Using the parametrized values, init an instance of DBSCAN1D and
         DBSCAN (from sklearn)
         """
         eps, min_samples = request.param
@@ -184,7 +184,7 @@ class TestSKleanEquivalent:
         assert np.equal(db1.core_sample_indices_, db2.core_sample_indices_).all()
         # Then make sure all points left unclustered on one array are not
         # clustered on the second.
-        assert unclusterd_equal(out1, out2)
+        assert unclustered_equal(out1, out2)
         # Now assert the same points fall in the same cluster groups
         assert clusters_equivalent(db1, db2, blobs)
 

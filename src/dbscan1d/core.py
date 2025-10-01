@@ -81,7 +81,7 @@ class DBSCAN1D:
 
     def fit(self, X, y=None, sample_weight=None):
         """
-        Performing DBSCAN clustering on 1D array.
+        Perform DBSCAN clustering on 1D array.
 
         Parameters
         ----------
@@ -90,7 +90,7 @@ class DBSCAN1D:
         y
             Not used
         sample_weight
-            Not yet supported
+            Weight of each sample
         """
         assert len(X.shape) == 1 or X.shape[-1] == 1, "X must be 1d array"
         assert y is None, "y parameter is ignored"
@@ -126,7 +126,7 @@ class DBSCAN1D:
 
     def fit_predict(self, X, y=None, sample_weight=None):
         """
-        Performing DBSCAN clustering on 1D array and return the label array.
+        Perform DBSCAN clustering on 1D array and return the label array.
 
         Parameters
         ----------
@@ -135,7 +135,7 @@ class DBSCAN1D:
         y
             Not used
         sample_weight
-            Not yet supported
+            Weight of each sample
         """
         self.fit(X, y=y, sample_weight=sample_weight)
         return self.labels_

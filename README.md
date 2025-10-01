@@ -6,11 +6,11 @@
 [![Licence](https://www.gnu.org/graphics/lgplv3-88x31.png)](https://www.gnu.org/licenses/lgpl.html)
 
 dbscan1d is a 1D implementation of the [DBSCAN algorithm](https://en.wikipedia.org/wiki/DBSCAN). It was created to efficiently
-preform clustering on large 1D arrays.
+perform clustering on large 1D arrays.
 
 [Sci-kit Learn's DBSCAN implementation](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html) does
 not have a special case for 1D, where calculating the full distance matrix is wasteful. It is much better to simply sort
-the input array and performing efficient bisects for finding closest points. Here are the results of running the simple
+the input array and perform efficient bisects for finding closest points. Here are the results of running the simple
 profile script included with the package. In every case DBSCAN1D is much faster than scikit learn's implementation.
 
 ![image](https://github.com/d-chambers/dbscan1d/raw/master/profile_results.png)
@@ -23,7 +23,7 @@ pip install dbscan1d
 It only requires numpy.
 
 ## Quickstart
-dbscan1d is designed to be interchangable with sklearn's implementation in almost
+dbscan1d is designed to be interchangeable with sklearn's implementation in almost
 all cases.
 
 ```python
